@@ -1,6 +1,6 @@
 import { number, object, string } from "yup";
 
-export const addRewardSchema = (availableFunds) =>
+export const addRewardSchema = (availableFunds: number) =>
   object({
     rewardedPerson: object({ id: string(), fullName: string() })
       .nullable()
@@ -8,5 +8,5 @@ export const addRewardSchema = (availableFunds) =>
     reward: number()
       .max(availableFunds, "You are entering more than you have!")
       .required("Reward is a required field"),
-    comment: "",
+    comment: string(),
   });

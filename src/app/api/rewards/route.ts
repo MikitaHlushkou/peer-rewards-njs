@@ -2,12 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { RewardsModel, UserModel } from "@/lib/mongo/models";
 import dbConnect from "@/lib/mongo/db";
-interface CreateRewardBody {
-  senderOfTheReward: string;
-  rewardedPerson: { id: string; fullName: string };
-  reward: string;
-  comment: string;
-}
+import { IAddNewReward } from "@/types";
+
 export async function GET(req: NextRequest) {
   const userEmail = req.nextUrl.searchParams.get("email");
   await dbConnect();
@@ -32,10 +28,10 @@ export async function POST(req: NextRequest) {
     rewardedPerson,
     senderOfTheReward,
     reward,
-  } = data as CreateRewardBody;
+  } = data as IAddNewReward;
 
   await dbConnect();
-
+  console.log("SENDER", senderOfTheReward);
   // update rewards for users
   await UserModel.updateOne(
     {

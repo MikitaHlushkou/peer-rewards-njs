@@ -27,7 +27,7 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-
+      // @ts-ignore
       async authorize(credentials) {
         await dbConnect();
         if (!credentials?.email || !credentials.password) {
@@ -61,15 +61,17 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     session: async ({ session, token }) => {
       await dbConnect();
-      const user: IUser = await UserModel.findOne({ email: token.email });
+      const user: IUser | null = await UserModel.findOne({
+        email: token.email,
+      });
       return {
         ...session,
         user: {
           ...session.user,
-          fullName: user.fullName,
-          giftedRewardAmount: user.giftedRewardAmount,
-          receivedRewardAmount: user.receivedRewardAmount,
-          initials: user.initials,
+          fullName: user?.fullName,
+          giftedRewardAmount: user?.giftedRewardAmount,
+          receivedRewardAmount: user?.receivedRewardAmount,
+          initials: user?.initials,
           id: token.id,
           randomKey: token.randomKey,
         },

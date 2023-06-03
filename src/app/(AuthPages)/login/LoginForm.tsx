@@ -7,6 +7,11 @@ import Input from "@/components/Input/Input";
 import { loginSchema } from "@/app/(AuthPages)/login/ValidationShema";
 import { AUTH_CREDS_PROVIDERS } from "@/enum";
 
+type ILoginFormProps = {
+  email: string;
+  password: string;
+};
+
 const LoginForm = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -38,9 +43,9 @@ const LoginForm = () => {
           } else {
             setError("invalid email or password");
           }
-        } catch (error: any) {
+        } catch (e: any) {
           setLoading(false);
-          setError(error);
+          setError(e?.message ?? "Unknown Error");
         }
       },
     }
@@ -75,14 +80,14 @@ const LoginForm = () => {
             type={type}
             {...getFieldProps(fieldName)}
             placeholder={placeholder}
-            errorMessage={errors[fieldName]}
+            errorMessage={errors[fieldName as keyof ILoginFormProps]}
           />
         </div>
       ))}
 
       <button
         type="submit"
-        className="inline-block bg-blue-600 disabled:bg-gray-500 px-1 text-center py-4 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full "
+        className="inline-block bg-blue-600 disabled:bg-gray-500 px-0 text-center py-4 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full "
         disabled={!isValid || loading}
       >
         {loading ? "loading..." : "Sign In"}

@@ -27,3 +27,10 @@ export interface IUsersList {
   id: string;
   fullName: string;
 }
+
+export interface IAddNewReward {
+  senderOfTheReward: string;
+  rewardedPerson: { id: string; fullName: string };
+  reward: string;
+  comment: string;
+}

@@ -18,13 +18,27 @@ import { usernameSearchQuery } from "@/services/search";
 import { addRewardQuery } from "@/services/rewards";
 // styles and types
 import "./AddRewardModal.css";
-import { IReward, IUsersList } from "@/types";
+import { IAddNewReward, IUsersList } from "@/types";
+
+interface IAddRewardFormProps {
+  rewardedPerson: { id: string; fullName: string };
+  reward: string;
+  comment: string;
+}
+
+interface IInputMap {
+  fieldName: keyof IAddRewardFormProps;
+  label: string;
+  type: string;
+  inputType: INPUT_TYPES;
+}
 
 const AddRewardModal = () => {
   const queryClient = useQueryClient();
   const {
     isAuthenticated,
     fullName: loggedInUser,
+    email: loggedInUserEmail,
     receivedRewardAmount,
   } = useUser();
 
@@ -54,7 +68,12 @@ const AddRewardModal = () => {
     },
   });
 
-  const { setFieldValue, getFieldProps, handleSubmit, errors } = useFormik({
+  const {
+    setFieldValue,
+    getFieldProps,
+    handleSubmit,
+    errors,
+  } = useFormik<IAddRewardFormProps>({
     initialValues: {
       rewardedPerson: { id: "", fullName: "" },
       reward: "",
@@ -63,19 +82,19 @@ const AddRewardModal = () => {
     validationSchema: addRewardSchema(receivedRewardAmount),
     onSubmit: (values, { resetForm }) => {
       try {
-        const newReward: IReward = {
+        const newReward: Omit<IAddNewReward, "initials" | "createdAt"> = {
           ...values,
-          senderOfTheReward: loggedInUser,
+          senderOfTheReward: loggedInUserEmail,
         };
         addReward.mutate(newReward);
         resetForm();
-      } catch (e) {
-        setError(e);
+      } catch (e: any) {
+        setError(e?.message ?? "Unknown Error");
       }
     },
   });
 
-  const inputFields = [
+  const inputFields: IInputMap[] = [
     {
       fieldName: "rewardedPerson",
       label: "To",
@@ -101,9 +120,11 @@ const AddRewardModal = () => {
   const handlePersonAutocomplete = (event: SyntheticEvent, value: string) =>
     setSearchedPersonName(value);
 
+  const handleSubmitClick = () => handleSubmit();
+
   return (
     <Dialog.Root open={open}>
-      <Dialog.Trigger className={!isAuthenticated && "hidden"} asChild>
+      <Dialog.Trigger className={!isAuthenticated ? "hidden" : ""} asChild>
         <button
           disabled={!isAuthenticated}
           onClick={handleOpenModal}
@@ -196,9 +217,11 @@ const AddRewardModal = () => {
                   </label>
                   {renderedInput}
                 </fieldset>
-                <p className="text-right text-sm mb-1  text-red-600">
-                  {errors[fieldName]}
-                </p>
+                {errors?.[fieldName] && (
+                  <p className="text-right text-sm mb-1  text-red-600">
+                    {`${errors[fieldName]}`}
+                  </p>
+                )}
               </Fragment>
             );
           })}
@@ -211,7 +234,11 @@ const AddRewardModal = () => {
             }}
           >
             <Dialog.Close asChild>
-              <button onClick={handleSubmit} className="Button green">
+              <button
+                type={"submit"}
+                onClick={handleSubmitClick}
+                className="Button green"
+              >
                 Save changes
               </button>
             </Dialog.Close>

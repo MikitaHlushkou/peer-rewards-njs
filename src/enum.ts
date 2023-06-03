@@ -1,7 +1,7 @@
 export enum INPUT_TYPES {
-  textArea = "TextArea",
-  input = "Input",
-  select = "Select",
+  textArea,
+  input,
+  select,
 }
 
 export enum QUERY_KEYS {

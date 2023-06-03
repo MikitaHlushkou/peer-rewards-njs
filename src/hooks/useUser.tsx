@@ -12,7 +12,7 @@ const useUser = () => {
   const isAuthenticated = status === "authenticated";
   const { data, isSuccess, isFetching } = useQuery<IUser>(
     [QUERY_KEYS.userProfile, userEmail],
-    () => getUserProfileQuery(userEmail),
+    () => getUserProfileQuery(userEmail ?? ""),
     {
       enabled: isAuthenticated && !!userEmail,
     }
@@ -22,8 +22,8 @@ const useUser = () => {
     return { ...data, isLoading: isFetching, isAuthenticated };
   }
   return {
-    receivedRewardAmount: "",
-    giftedRewardAmount: "",
+    receivedRewardAmount: 0,
+    giftedRewardAmount: 0,
     email: "",
     fullName: "",
     initials: "",
