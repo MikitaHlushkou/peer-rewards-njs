@@ -1,4 +1,4 @@
-import { localService } from "@/services/utils";
+import { localService } from "@/services/api";
 import { IUserRegister } from "@/types";
 
 export const registerUserQuery = async (data: IUserRegister) =>
