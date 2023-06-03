@@ -31,7 +31,6 @@ export async function POST(req: NextRequest) {
   } = data as IAddNewReward;
 
   await dbConnect();
-  console.log("SENDER", senderOfTheReward);
   // update rewards for users
   await UserModel.updateOne(
     {
@@ -45,9 +44,12 @@ export async function POST(req: NextRequest) {
     { $inc: { receivedRewardAmount: reward } }
   );
   const rewardedUserModel = await UserModel.findById(rewardedPerson.id);
+  const userWhoSendAward = await UserModel.findOne({
+    email: senderOfTheReward,
+  });
 
   const newReward = new RewardsModel({
-    senderOfTheReward,
+    senderOfTheReward: userWhoSendAward.fullName,
     rewardedPerson: rewardedUserModel.fullName,
     reward,
     comment,

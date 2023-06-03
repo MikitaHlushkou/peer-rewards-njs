@@ -22,7 +22,7 @@ const Feed = ({ feedList, withAvatar = false }: IFeedProps) => {
         }) => (
           <div
             className={"flex py-3 justify-items-stretch "}
-            key={`${senderOfTheReward}-${comment}`}
+            key={`${senderOfTheReward}-${comment}-${createdAt}`}
           >
             {withAvatar && <UserAvatar initials={initials} />}
             <div className={"px-3"}>
