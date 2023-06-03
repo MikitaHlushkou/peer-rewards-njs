@@ -2,8 +2,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     background-color: #e0e0e0;
     color: #757575;
@@ -12,4 +12,14 @@
 }
 .fullName{
 font-weight: bold;
+}
+
+.big{
+    width: 56px;
+    height: 56px;
+}
+
+.regular{
+    width: 48px;
+    height: 48px;
 }
