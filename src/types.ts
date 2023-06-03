@@ -3,7 +3,27 @@ export interface IReward {
   rewardedPerson: string;
   reward: string;
   comment: string;
-  rewardedAt?: string;
+  initials: string;
+  createdAt: string;
 }
 
 export type IRewards = IReward[];
+
+export interface IUser {
+  email: string;
+  fullName: string;
+  giftedRewardAmount: number;
+  receivedRewardAmount: number;
+  initials: string;
+}
+
+export interface IUserRegister {
+  email: string;
+  fullName: string;
+  password: string;
+}
+
+export interface IUsersList {
+  id: string;
+  fullName: string;
+}
