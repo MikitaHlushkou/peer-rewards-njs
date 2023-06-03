@@ -31,28 +31,24 @@ const RegisterForm = () => {
     onError: (e) => setError(e.message),
   });
 
-  const {
-    getFieldProps,
-    handleSubmit,
-    handleReset,
-    errors,
-    isValid,
-  } = useFormik({
-    initialValues: { fullName: "", password: "", email: "" },
-    validationSchema: registerSchema,
-    onSubmit: async (values) => {
-      setLoading(true);
+  const { getFieldProps, handleSubmit, resetForm, errors, isValid } = useFormik(
+    {
+      initialValues: { fullName: "", password: "", email: "" },
+      validationSchema: registerSchema,
+      onSubmit: async (values) => {
+        setLoading(true);
 
-      try {
-        await registerUser(values);
-        setLoading(false);
-        handleReset();
-      } catch (e: any) {
-        setLoading(false);
-        setError(e);
-      }
-    },
-  });
+        try {
+          await registerUser(values);
+          setLoading(false);
+          resetForm();
+        } catch (e: any) {
+          setLoading(false);
+          setError(e);
+        }
+      },
+    }
+  );
 
   const inputs = [
     {

@@ -16,39 +16,35 @@ const LoginForm = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
 
-  const {
-    getFieldProps,
-    handleSubmit,
-    handleReset,
-    errors,
-    isValid,
-  } = useFormik({
-    initialValues: { email: "", password: "" },
-    validationSchema: loginSchema,
-    onSubmit: async (values) => {
-      try {
-        setLoading(true);
+  const { getFieldProps, handleSubmit, resetForm, errors, isValid } = useFormik(
+    {
+      initialValues: { email: "", password: "" },
+      validationSchema: loginSchema,
+      onSubmit: async (values) => {
+        try {
+          setLoading(true);
 
-        const res = await signIn(AUTH_CREDS_PROVIDERS.credentials, {
-          redirect: false,
-          ...values,
-          callbackUrl,
-        });
+          const res = await signIn(AUTH_CREDS_PROVIDERS.credentials, {
+            redirect: false,
+            ...values,
+            callbackUrl,
+          });
 
-        setLoading(false);
+          setLoading(false);
 
-        handleReset();
-        if (!res?.error) {
-          router.push(callbackUrl);
-        } else {
-          setError("invalid email or password");
+          resetForm();
+          if (!res?.error) {
+            router.push(callbackUrl);
+          } else {
+            setError("invalid email or password");
+          }
+        } catch (error: any) {
+          setLoading(false);
+          setError(error);
         }
-      } catch (error: any) {
-        setLoading(false);
-        setError(error);
-      }
-    },
-  });
+      },
+    }
+  );
 
   const inputs = [
     {
