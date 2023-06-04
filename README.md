@@ -1,6 +1,8 @@
 # Peer Rewards
 This is the project  that allows employees to receive and assign awards.
 
+Deployed version you can find here -  [Peer Rewards](https://joyful-torrone-50355b.netlify.app)
+
 ## Used libraries:
 
 Next.js v13.4 with new App router, Material UI, Moment.js, Radix modal component, Typescript,Tailwind css,Mongoose,Typegoose
