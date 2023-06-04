@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
-      url: "https://joyful-torrone-50355b.netlify.app/myrewards",
+      url: "https://joyful-torrone-50355b.netlify.app/my-rewards",
       lastModified: new Date(),
     },
     {
