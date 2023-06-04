@@ -16,7 +16,9 @@ const Header = () => {
   const handleRegisterClick = () => router.push("/register");
 
   return (
-    <header className={"flex justify-between container p-3  "}>
+    <header
+      className={"flex justify-between container md:p-3 gap-y-3 flex-wrap  "}
+    >
       <h1 className={"place-self-center"}>
         {" "}
         <span className={"text-blue-600 font-bold"}>Peer Rewards</span> — to
@@ -25,7 +27,11 @@ const Header = () => {
       {isLoading ? (
         <Skeleton className={"w-16"} />
       ) : (
-        <div className={"flex gap-x-4"}>
+        <div
+          className={
+            "flex gap-x-4 m-auto md:m-0 justify-around md:justify-between"
+          }
+        >
           <Button
             variant={"contained"}
             onClick={isAuthenticated ? handleLogoutClick : handleLoginClick}

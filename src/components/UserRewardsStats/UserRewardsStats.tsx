@@ -27,7 +27,7 @@ const UserRewardsStats = () => {
       <div className={"ml-4 hidden md:block"}>
         <UserAvatar initials={initials} size={"big"} fullName={fullName} />
       </div>
-      <div className={"flex gap-x-40 items-center"}>
+      <div className={"flex md:gap-x-40 items-center"}>
         {profileFields.map(({ title, amount }) => (
           <div
             key={title}

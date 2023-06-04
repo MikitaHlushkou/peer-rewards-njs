@@ -5,7 +5,7 @@ import UserRewardsStats from "@/components/UserRewardsStats/UserRewardsStats";
 
 const RewardsLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className={"container relative "}>
+    <div className={"md:container relative "}>
       <div
         className={
           "p-3  flex flex-col md:min-h-[150px]  md:items-center   md:flex-row md:p-0 gap-x-60 "
