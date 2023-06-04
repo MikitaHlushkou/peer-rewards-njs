@@ -10,6 +10,8 @@ const MainRewardsFeed = () => {
   const { data } = useQuery<IRewards>({
     queryKey: [QUERY_KEYS.rewards],
     queryFn: getRewardsQuery,
+    refetchInterval: 60000,
+    refetchOnMount: true,
   });
 
   if (!data || data.length === 0)

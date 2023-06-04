@@ -10,6 +10,7 @@ const UserRewardsStats = () => {
     initials,
     fullName,
     isLoading,
+    isAuthenticated,
   } = useUser();
 
   const profileFields = [
@@ -22,6 +23,19 @@ const UserRewardsStats = () => {
       amount: giftedRewardAmount,
     },
   ];
+
+  if (!isAuthenticated) {
+    return (
+      <div
+        className={
+          "m-auto   animate-text bg-gradient-to-r from-blue-800 via-cyan-700 to-blue-400 bg-clip-text text-transparent text-2xl font-black"
+        }
+      >
+        Please Login or Register to use full functionality
+      </div>
+    );
+  }
+
   return (
     <>
       <div className={"ml-4 hidden md:block"}>

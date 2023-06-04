@@ -14,7 +14,7 @@ const MyRewardsFeed = () => {
   const { data, isFetching, isFetched } = useQuery<IRewards>(
     [QUERY_KEYS.userRewards, email],
     () => getUserRewardsQuery(email),
-    { enabled: !!email }
+    { enabled: !!email, refetchInterval: 60000 }
   );
 
   if (isFetching || !isFetched) {
