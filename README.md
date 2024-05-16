@@ -1,5 +1,5 @@
 # Peer Rewards
-This is the project  that allows employees to receive and assign awards.
+This is the project for performance review that allows employees to receive and assign awards.
 
 Deployed version you can find here -  [Peer Rewards](https://joyful-torrone-50355b.netlify.app)
 
